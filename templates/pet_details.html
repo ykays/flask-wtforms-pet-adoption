@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+    {% block title %} Pet details {% endblock %}
+    {% block content %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+        <p class="alert alert-info" role="alert">{{message}}</p>
+        {% endfor %}
+        <div class="title text-center">
+            <h1>Details about {{pet.name}}</h1>
+        </div>
+        <div class="card">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-fluid rounded-start" src={{pet.photo_url}} alt="">
+                </div>
+                <div class="col-md-8">  
+                    <div class="card-body">
+                        <h3 class="card-title"> Name: {{pet.name}} </h3>
+                        <p class="card-text">Age: {{pet.age}}</p>
+                        <p class="card-text">Species: {{pet.species}}</p>
+                        <p class="card-text">Notes/Comments: {{pet.notes}}</p>
+                        <p class="card-text"> {{pet.name}} {% if pet.available %}
+                                    <b> is available! </b> 
+                                    {% else %}
+                                    <span> is not available </span>
+                                    {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="title text-center">
+            <h1>Edit details about {{pet.name}}</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form action="" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        
+                        {{form.photo_url.label}}
+                        {{form.photo_url(class_='form-control')}}
+                        {% for err in form.photo_url.errors %}
+                        <small class="form-text text-danger">{{err}} </small>
+                        {% endfor %}
+                        {{form.notes.label}}
+                        {{form.notes(class_='form-control')}}
+                        {{form.available.label}}
+                        {{form.available}}
+                    </div>
+                    <button class="btn btn-success">Submit</button>
+                    <a href="/" class="btn btn-danger">Go back</a>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    {% endblock %} 
+
+
+
